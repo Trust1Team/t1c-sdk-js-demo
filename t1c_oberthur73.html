@@ -20,124 +20,12 @@
 
 </head>
 
-<body id="page-top" onload="initBeid()">
+<body id="page-top" onload="initT1C()">
 
   <!-- Page Wrapper -->
   <div id="wrapper">
 
-    <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-      <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-        <div class="sidebar-brand-icon rotate-n-15">
-          <i class="fas fa-laugh-wink"></i>
-        </div>
-        <div class="sidebar-brand-text mx-3">T1C Demo App</div>
-      </a>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider my-0">
-
-      <!-- Nav Item - Dashboard -->
-      <li class="nav-item">
-        <a class="nav-link" href="index.html">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span></a>
-      </li>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider">
-
-      <!-- Heading -->
-      <div class="sidebar-heading">
-        Interface
-      </div>
-
-      <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item active">
-        <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-          <i class="fas fa-fw fa-cog"></i>
-          <span>Components</span>
-        </a>
-        <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Custom Components:</h6>
-            <a class="collapse-item active" href="buttons.html">Buttons</a>
-            <a class="collapse-item" href="cards.html">Cards</a>
-          </div>
-        </div>
-      </li>
-
-      <!-- Nav Item - Utilities Collapse Menu -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-          <i class="fas fa-fw fa-wrench"></i>
-          <span>Utilities</span>
-        </a>
-        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Custom Utilities:</h6>
-            <a class="collapse-item" href="utilities-color.html">Colors</a>
-            <a class="collapse-item" href="utilities-border.html">Borders</a>
-            <a class="collapse-item" href="utilities-animation.html">Animations</a>
-            <a class="collapse-item" href="utilities-other.html">Other</a>
-          </div>
-        </div>
-      </li>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider">
-
-      <!-- Heading -->
-      <div class="sidebar-heading">
-        Addons
-      </div>
-
-      <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-          <i class="fas fa-fw fa-folder"></i>
-          <span>Pages</span>
-        </a>
-        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Login Screens:</h6>
-            <a class="collapse-item" href="login.html">Login</a>
-            <a class="collapse-item" href="register.html">Register</a>
-            <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-            <div class="collapse-divider"></div>
-            <h6 class="collapse-header">Other Pages:</h6>
-            <a class="collapse-item" href="404.html">404 Page</a>
-            <a class="collapse-item" href="blank.html">Blank Page</a>
-          </div>
-        </div>
-      </li>
-
-      <!-- Nav Item - Charts -->
-      <li class="nav-item">
-        <a class="nav-link" href="charts.html">
-          <i class="fas fa-fw fa-chart-area"></i>
-          <span>Charts</span></a>
-      </li>
-
-      <!-- Nav Item - Tables -->
-      <li class="nav-item">
-        <a class="nav-link" href="tables.html">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Tables</span></a>
-      </li>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider d-none d-md-block">
-
-      <!-- Sidebar Toggler (Sidebar) -->
-      <div class="text-center d-none d-md-inline">
-        <button class="rounded-circle border-0" id="sidebarToggle"></button>
-      </div>
-
-    </ul>
-    <!-- End of Sidebar -->
+    <div id="includeSidebar"></div>
 
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
@@ -333,7 +221,7 @@
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <h1 class="h3 mb-4 text-gray-800">Belgian eID</h1>
+          <h1 class="h3 mb-4 text-gray-800">Oberthur 7.3</h1>
           <div class="row">
             <div class="col-lg-4">
               <!-- Card Reader -->
@@ -354,74 +242,111 @@
                 </div>
               </div>
 
-              <!-- Brand Buttons -->
+
               <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">Token Service</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Certificate Service</h6>
                 </div>
+                <div class="card-body">
+                  <a href="#" class="btn btn-primary btn-icon-split">
+                    <span class="icon text-white-50">
+                      <i class="fas fa-lock"></i>
+                    </span>
+                    <span class="text t1c-cert-root">Root Cert</span>
+                  </a>
+                  <a href="#" class="btn btn-primary btn-icon-split">
+                    <span class="icon text-white-50">
+                      <i class="fas fa-lock"></i>
+                    </span>
+                    <span class="text t1c-cert-issuer">Issuer Cert</span>
+                  </a>
+                  <div class="my-2">
+                    <a href="#" class="btn btn-primary btn-icon-split">
+                    <span class="icon text-white-50">
+                      <i class="fas fa-lock"></i>
+                    </span>
+                      <span class="text t1c-cert-auth">Auth Cert</span>
+                    </a>
+                    <a href="#" class="btn btn-primary btn-icon-split">
+                    <span class="icon text-white-50">
+                      <i class="fas fa-lock"></i>
+                    </span>
+                      <span class="text t1c-cert-sign">Sign Cert</span>
+                    </a>
+                  </div>
+                  <div class="my-2">
+                    <a href="#" class="btn btn-primary btn-icon-split">
+                    <span class="icon text-white-50">
+                      <i class="fas fa-lock"></i>
+                    </span>
+                      <span class="text t1c-cert-enc">Enc Cert</span>
+                    </a>
+                    <a href="#" class="btn btn-primary btn-icon-split">
+                    <span class="icon text-white-50">
+                      <i class="fas fa-lock"></i>
+                    </span>
+                      <span class="text t1c-cert-all">All Certs</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card shadow mb-4">
+
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">Transaction Service</h6>
+                </div>
+
                 <div class="card-body">
                   <a href="#" class="btn btn-primary btn-icon-split">
                     <span class="icon text-white-50">
                       <i class="fas fa-archive"></i>
                     </span>
-                    <span class="text beid-all-data">Get all data</span>
+                    <span class="text t1c-filters-data">Data Filters</span>
                   </a>
                   <a href="#" class="btn btn-primary btn-icon-split">
                     <span class="icon text-white-50">
                       <i class="fas fa-address-card"></i>
                     </span>
-                    <span class="text beid-data-rn">Get Rn data</span>
+                    <span class="text t1c-filters-certs">Certificate Filters</span>
                   </a>
                   <div class="my-2">
                     <a href="#" class="btn btn-primary btn-icon-split">
                     <span class="icon text-white-50">
                       <i class="fas fa-fingerprint"></i>
                     </span>
-                      <span class="text beid-data-token">Get Token data</span>
+                      <span class="text t1c-filters-keys">Key references</span>
                     </a>
                     <a href="#" class="btn btn-primary btn-icon-split">
                     <span class="icon text-white-50">
-                      <i class="fas fa-id-badge"></i>
+                      <i class="fas fa-fingerprint"></i>
                     </span>
-                      <span class="text beid-data-pic">Get Picture data</span>
+                      <span class="text t1c-filters-algos">Supported Algos</span>
                     </a>
                   </div>
                   <div class="my-2">
                     <a href="#" class="btn btn-primary btn-icon-split">
                     <span class="icon text-white-50">
+                      <i class="fas fa-id-badge"></i>
+                    </span>
+                      <span class="text t1c-tx-verify">Verify PIN</span>
+                    </a>
+                    <a href="#" class="btn btn-primary btn-icon-split">
+                    <span class="icon text-white-50">
                       <i class="fas fa-home"></i>
                     </span>
-                      <span class="text beid-data-address">Get Address data</span>
+                      <span class="text t1c-tx-auth">Authenticate</span>
+                    </a>
+                    <a href="#" class="btn btn-primary btn-icon-split">
+                    <span class="icon text-white-50">
+                      <i class="fas fa-home"></i>
+                    </span>
+                      <span class="text t1c-tx-sign">Sign</span>
                     </a>
                   </div>
                 </div>
               </div>
 
-              <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">Transaction Service</h6>
-                </div>
-                <div class="card-body">
-                  <p>Google and Facebook buttons are available featuring each company's respective brand color. They are used on the user login and registration pages.</p>
-                  <p>You can create more custom buttons by adding a new color variable in the <code>_variables.scss</code> file and then using the Bootstrap button variant mixin to create a new style, as demonstrated in the <code>_buttons.scss</code> file.</p>
-                  <a href="#" class="btn btn-google btn-block"><i class="fab fa-google fa-fw"></i> .btn-google</a>
-                  <a href="#" class="btn btn-facebook btn-block"><i class="fab fa-facebook-f fa-fw"></i> .btn-facebook</a>
-
-                </div>
-              </div>
-
-              <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">Meta Service</h6>
-                </div>
-                <div class="card-body">
-                  <p>Google and Facebook buttons are available featuring each company's respective brand color. They are used on the user login and registration pages.</p>
-                  <p>You can create more custom buttons by adding a new color variable in the <code>_variables.scss</code> file and then using the Bootstrap button variant mixin to create a new style, as demonstrated in the <code>_buttons.scss</code> file.</p>
-                  <a href="#" class="btn btn-google btn-block"><i class="fab fa-google fa-fw"></i> .btn-google</a>
-                  <a href="#" class="btn btn-facebook btn-block"><i class="fab fa-facebook-f fa-fw"></i> .btn-facebook</a>
-
-                </div>
-              </div>
 
             </div>
 
@@ -436,10 +361,12 @@
                   <!--Output JSON results-->
                   <div>
                     <pre><code class="output-data"></code></pre>
+                    <code class="output-data-parsed"></code>
                   </div>
                 </div>
               </div>
             </div>
+
           </div>
 
 
@@ -455,13 +382,7 @@
       <!-- End of Main Content -->
 
       <!-- Footer -->
-      <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-          <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Trust1Connector 2020</span>
-          </div>
-        </div>
-      </footer>
+      <div id="includeFooter"></div>
       <!-- End of Footer -->
 
     </div>
@@ -487,7 +408,11 @@
 
   <!--Trust1Connector SDK-->
   <script src="t1c/T1CSdk.js"></script>
-  <script src="t1c/app_beid.js"></script>
+  <script src="t1c/app_oberthur73.js"></script>
+  <script>
+    $(function(){$("#includeSidebar").load("t1c_sidebar.html");});
+    $(function(){$("#includeFooter").load("t1c_footer.html");});
+  </script>
 </body>
 
 </html>
