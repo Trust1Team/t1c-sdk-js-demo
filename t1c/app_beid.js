@@ -23,6 +23,21 @@ var config = new T1CSdk.T1CConfig();
 var pkcs11 = null;
 let selected_reader = null
 
+document.querySelector(".beid-all-data").addEventListener("click", (ev) => {
+    if(getBeid()  === undefined) {
+        document.querySelector(".output-data").innerHTML = JSON.stringify("Select a reader", null, " ");
+    }else {
+        getBeid().allData().then(res => document.querySelector(".output-data").innerHTML = JSON.stringify(res.data, null, " "));
+    }
+})
+
+document.querySelector(".beid-data-rn").addEventListener("click", (ev) => {
+    if(getBeid()  === undefined) {
+        document.querySelector(".output-data").innerHTML = JSON.stringify("Select a reader", null, " ");
+    }else {
+        getBeid().rnData().then(res => document.querySelector(".output-data").innerHTML = JSON.stringify(res.data, null, " "));
+    }
+})
 /*document.querySelector(".infoT1C").addEventListener("click", (ev) => {
     console.log("Get T1C info")
     core.info().then(res => {
@@ -132,12 +147,27 @@ document.querySelector(".beid-sign-data").addEventListener("click", (ev) => {
     document.querySelector(".output-data").innerHTML = JSON.stringify(err, null, " ")
 })*/
 
+function getReaders() {
+    core.readersCardAvailable().then(res => {
+        if (res.success) {
+            resetReaderList();
+            if (res.data.length > 0) {
+                for (var i = 0; i < res.data.length > 0; i++) {
+                    addReaderValue(res.data[i].name, res.data[i].id)
+                }
+            }
+        }
+    }, err => {
+        console.log("Cards available error:", err)
+        document.querySelector(".output-data").innerHTML = JSON.stringify(err, null, " ")
+    })
+}
 
 /*Readers with card inserted*/
-
 document.querySelector(".readerWithCardsMenu").addEventListener("click", (ev) => {
     core.readersCardAvailable().then(res => {
         if (res.success) {
+            console.log(res.data);
             resetReaderList();
             if (res.data.length > 0) {
                 for (var i = 0; i < res.data.length > 0; i++) {
@@ -156,8 +186,7 @@ document.querySelector(".readerWithCardsMenu").addEventListener("click", (ev) =>
 
 
 function addReaderValue(name, id) {
-    console.log("reader: "+ name + " with id: " + id)
-    let ddm = document.querySelector(".dropdown-menu");
+    let ddm = document.querySelector(".reader-drop-down");
     let child = document.createElement('a')
     child.classList = 'dropdown-item';
     child.setAttribute("id", id)
@@ -169,7 +198,7 @@ function addReaderValue(name, id) {
 }
 
 function resetReaderList() {
-    let ddm = document.querySelector(".dropdown-menu");
+    let ddm = document.querySelector(".reader-drop-down");
     while (ddm.firstChild) {
         ddm.removeChild(ddm.firstChild);
     }
@@ -180,13 +209,13 @@ function readerClicked(name, id) {
         name: name,
         id: id
     }
-    document.querySelector(".badge").innerHTML = name
-    document.querySelector(".badge").classList = "badge badge-success"
-    document.querySelector(".beid").classList = "btn btn-primary beid"
-    document.querySelector(".beid-verify-pin").classList = "btn btn-primary beid-verify-pin"
-    document.querySelector(".beid-sign-data").classList = "btn btn-primary beid-sign-data"
+    document.querySelector(".badge").innerHTML = name;
+    document.querySelector(".badge").classList = "badge badge-success";
+/*    document.querySelector(".beid").classList = "btn btn-primary beid";
+    document.querySelector(".beid-verify-pin").classList = "btn btn-primary beid-verify-pin";
+    document.querySelector(".beid-sign-data").classList = "btn btn-primary beid-sign-data";*/
+    document.querySelector(".readerWithCardsMenu").innerHTML = "Selected: " + name;
 }
-
 /*function signData(client, selected_reader, pin) {
     var beid = client.beid(selected_reader.id);
     const filter = ['root_certificate', 'citizen_certificate', 'non_repudiaton_certificate'];
@@ -235,12 +264,12 @@ function trimObj(obj) {
     }, Array.isArray(obj) ? [] : {});
 }
 
-function initBeid(){
-    console.log("hello from belgium");
-    core.version().then(versionResult => console.log("BEID: core version: " + versionResult));
+function getBeid() {
+    if(selected_reader === null || selected_reader === undefined) return undefined
+    else return client.beid(selected_reader.id);
 }
 
-function initT1C() {
+function initBeid() {
     console.log("Start initializing T1C")
 
     var configoptions = new T1CSdk.T1CConfigOptions(
@@ -270,13 +299,10 @@ function initT1C() {
         client = res;
         console.log("Client config: ", client.localConfig)
         core = client.core();
-        core.version().then(versionResult => document.getElementById('t1c-sdk-js-version').innerText = versionResult);
-        core.info().then(infoResult => {
-                document.getElementById('t1c-sdk-js-os-info').innerText = (infoResult.t1CInfoOS.os + " (" + infoResult.t1CInfoOS.architecture + ")-v" + infoResult.t1CInfoOS.version);
-                document.getElementById('t1c-sdk-js-java-info').innerText = (infoResult.t1CInfoJava.runtime + " (spec: " + infoResult.t1CInfoJava.spec + ")");
-                document.getElementById('t1c-sdk-js-log-info').innerText = (infoResult.t1CInfoAPI.logLevel + " (T1C-API: " + infoResult.t1CInfoAPI.version + ")");
-            }
-        );
+        core.version().then(versionResult => console.log("Beid running on core "+ versionResult));
+        getReaders();
+        var beid = client.beid("1354a0441b185201");
+        beid.allData().then(result => console.log(result.data));
     }, err => {
         console.log("T1C error:", err)
         if (err.code == 301 || err.code == 302) {

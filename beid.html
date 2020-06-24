@@ -191,9 +191,10 @@
             <!-- Nav Item - Alerts -->
             <li class="nav-item dropdown no-arrow mx-1">
               <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-bell fa-fw"></i>
+                <i class="fas fa-tablet fa-fw"></i>
                 <!-- Counter - Alerts -->
-                <span class="badge badge-danger badge-counter">3+</span>
+                <!--<span class="badge badge-danger badge-counter">3+</span>-->
+                <span class="badge badge-danger">Select Reader</span>
               </a>
               <!-- Dropdown - Alerts -->
               <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
@@ -333,89 +334,66 @@
 
           <!-- Page Heading -->
           <h1 class="h3 mb-4 text-gray-800">Belgian eID</h1>
-
           <div class="row">
-
             <div class="col-lg-4">
-
-              <!-- Circle Buttons -->
+              <!-- Card Reader -->
               <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">Identity Service</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Card Reader</h6>
                 </div>
                 <div class="card-body">
-                  <p>Use Font Awesome Icons (included with this theme package) along with the circle buttons as shown in the examples below!</p>
-                  <!-- Circle Buttons (Default) -->
-                  <div class="mb-2">
-                    <code>.btn-circle</code>
+                  <div class="dropdown mb-4">
+                    <div class="dropdown">
+                      <button class="btn btn-secondary dropdown-toggle readerWithCardsMenu" type="button" id="readerWithCardsMenu"
+                              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Select reader (card available)
+                      </button>
+                      <div class="dropdown-menu reader-drop-down animated--fade-in" aria-labelledby="readerWithCardsMenu"></div>
+                    </div>
                   </div>
-                  <a href="#" class="btn btn-primary btn-circle">
-                    <i class="fab fa-facebook-f"></i>
-                  </a>
-                  <a href="#" class="btn btn-success btn-circle">
-                    <i class="fas fa-check"></i>
-                  </a>
-                  <a href="#" class="btn btn-info btn-circle">
-                    <i class="fas fa-info-circle"></i>
-                  </a>
-                  <a href="#" class="btn btn-warning btn-circle">
-                    <i class="fas fa-exclamation-triangle"></i>
-                  </a>
-                  <a href="#" class="btn btn-danger btn-circle">
-                    <i class="fas fa-trash"></i>
-                  </a>
-                  <!-- Circle Buttons (Small) -->
-                  <div class="mt-4 mb-2">
-                    <code>.btn-circle .btn-sm</code>
-                  </div>
-                  <a href="#" class="btn btn-primary btn-circle btn-sm">
-                    <i class="fab fa-facebook-f"></i>
-                  </a>
-                  <a href="#" class="btn btn-success btn-circle btn-sm">
-                    <i class="fas fa-check"></i>
-                  </a>
-                  <a href="#" class="btn btn-info btn-circle btn-sm">
-                    <i class="fas fa-info-circle"></i>
-                  </a>
-                  <a href="#" class="btn btn-warning btn-circle btn-sm">
-                    <i class="fas fa-exclamation-triangle"></i>
-                  </a>
-                  <a href="#" class="btn btn-danger btn-circle btn-sm">
-                    <i class="fas fa-trash"></i>
-                  </a>
-                  <!-- Circle Buttons (Large) -->
-                  <div class="mt-4 mb-2">
-                    <code>.btn-circle .btn-lg</code>
-                  </div>
-                  <a href="#" class="btn btn-primary btn-circle btn-lg">
-                    <i class="fab fa-facebook-f"></i>
-                  </a>
-                  <a href="#" class="btn btn-success btn-circle btn-lg">
-                    <i class="fas fa-check"></i>
-                  </a>
-                  <a href="#" class="btn btn-info btn-circle btn-lg">
-                    <i class="fas fa-info-circle"></i>
-                  </a>
-                  <a href="#" class="btn btn-warning btn-circle btn-lg">
-                    <i class="fas fa-exclamation-triangle"></i>
-                  </a>
-                  <a href="#" class="btn btn-danger btn-circle btn-lg">
-                    <i class="fas fa-trash"></i>
-                  </a>
                 </div>
               </div>
 
               <!-- Brand Buttons -->
               <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">Certificate Service</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Token Service</h6>
                 </div>
                 <div class="card-body">
-                  <p>Google and Facebook buttons are available featuring each company's respective brand color. They are used on the user login and registration pages.</p>
-                  <p>You can create more custom buttons by adding a new color variable in the <code>_variables.scss</code> file and then using the Bootstrap button variant mixin to create a new style, as demonstrated in the <code>_buttons.scss</code> file.</p>
-                  <a href="#" class="btn btn-google btn-block"><i class="fab fa-google fa-fw"></i> .btn-google</a>
-                  <a href="#" class="btn btn-facebook btn-block"><i class="fab fa-facebook-f fa-fw"></i> .btn-facebook</a>
-
+                  <a href="#" class="btn btn-primary btn-icon-split">
+                    <span class="icon text-white-50">
+                      <i class="fas fa-archive"></i>
+                    </span>
+                    <span class="text beid-all-data">Get all data</span>
+                  </a>
+                  <a href="#" class="btn btn-primary btn-icon-split">
+                    <span class="icon text-white-50">
+                      <i class="fas fa-address-card"></i>
+                    </span>
+                    <span class="text beid-data-rn">Get Rn data</span>
+                  </a>
+                  <div class="my-2">
+                    <a href="#" class="btn btn-primary btn-icon-split">
+                    <span class="icon text-white-50">
+                      <i class="fas fa-fingerprint"></i>
+                    </span>
+                      <span class="text beid-data-token">Get Token data</span>
+                    </a>
+                    <a href="#" class="btn btn-primary btn-icon-split">
+                    <span class="icon text-white-50">
+                      <i class="fas fa-id-badge"></i>
+                    </span>
+                      <span class="text beid-data-pic">Get Picture data</span>
+                    </a>
+                  </div>
+                  <div class="my-2">
+                    <a href="#" class="btn btn-primary btn-icon-split">
+                    <span class="icon text-white-50">
+                      <i class="fas fa-home"></i>
+                    </span>
+                      <span class="text beid-data-address">Get Address data</span>
+                    </a>
+                  </div>
                 </div>
               </div>
 
@@ -449,81 +427,26 @@
 
             <div class="col-lg-8">
 
-              <!--<div class="card shadow mb-4">
+              <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">Split Buttons with Icon</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Results</h6>
                 </div>
                 <div class="card-body">
-                  <p>Works with any button colors, just use the <code>.btn-icon-split</code> class and the markup in the examples below. The examples below also use the <code>.text-white-50</code> helper class on the icons for additional styling, but it is not required.</p>
-                  <a href="#" class="btn btn-primary btn-icon-split">
-                    <span class="icon text-white-50">
-                      <i class="fas fa-flag"></i>
-                    </span>
-                    <span class="text">Split Button Primary</span>
-                  </a>
-                  <div class="my-2"></div>
-                  <a href="#" class="btn btn-success btn-icon-split">
-                    <span class="icon text-white-50">
-                      <i class="fas fa-check"></i>
-                    </span>
-                    <span class="text">Split Button Success</span>
-                  </a>
-                  <div class="my-2"></div>
-                  <a href="#" class="btn btn-info btn-icon-split">
-                    <span class="icon text-white-50">
-                      <i class="fas fa-info-circle"></i>
-                    </span>
-                    <span class="text">Split Button Info</span>
-                  </a>
-                  <div class="my-2"></div>
-                  <a href="#" class="btn btn-warning btn-icon-split">
-                    <span class="icon text-white-50">
-                      <i class="fas fa-exclamation-triangle"></i>
-                    </span>
-                    <span class="text">Split Button Warning</span>
-                  </a>
-                  <div class="my-2"></div>
-                  <a href="#" class="btn btn-danger btn-icon-split">
-                    <span class="icon text-white-50">
-                      <i class="fas fa-trash"></i>
-                    </span>
-                    <span class="text">Split Button Danger</span>
-                  </a>
-                  <div class="my-2"></div>
-                  <a href="#" class="btn btn-secondary btn-icon-split">
-                    <span class="icon text-white-50">
-                      <i class="fas fa-arrow-right"></i>
-                    </span>
-                    <span class="text">Split Button Secondary</span>
-                  </a>
-                  <div class="my-2"></div>
-                  <a href="#" class="btn btn-light btn-icon-split">
-                    <span class="icon text-gray-600">
-                      <i class="fas fa-arrow-right"></i>
-                    </span>
-                    <span class="text">Split Button Light</span>
-                  </a>
-                  <div class="mb-4"></div>
-                  <p>Also works with small and large button classes!</p>
-                  <a href="#" class="btn btn-primary btn-icon-split btn-sm">
-                    <span class="icon text-white-50">
-                      <i class="fas fa-flag"></i>
-                    </span>
-                    <span class="text">Split Button Small</span>
-                  </a>
-                  <div class="my-2"></div>
-                  <a href="#" class="btn btn-primary btn-icon-split btn-lg">
-                    <span class="icon text-white-50">
-                      <i class="fas fa-flag"></i>
-                    </span>
-                    <span class="text">Split Button Large</span>
-                  </a>
+                  <p>Use case results will appear here</p>
+                  <!--Output JSON results-->
+                  <div>
+                    <pre><code class="output-data"></code></pre>
+                  </div>
                 </div>
-              </div>-->
-
+              </div>
             </div>
-
           </div>
+
+
+
+
+
+
 
         </div>
         <!-- /.container-fluid -->
@@ -535,7 +458,7 @@
       <footer class="sticky-footer bg-white">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Your Website 2020</span>
+            <span>Copyright &copy; Trust1Connector 2020</span>
           </div>
         </div>
       </footer>
@@ -552,25 +475,6 @@
     <i class="fas fa-angle-up"></i>
   </a>
 
-  <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -583,7 +487,7 @@
 
   <!--Trust1Connector SDK-->
   <script src="t1c/T1CSdk.js"></script>
-  <script src="t1c/app.js"></script>
+  <script src="t1c/app_beid.js"></script>
 </body>
 
 </html>
