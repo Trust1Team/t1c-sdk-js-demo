@@ -29,7 +29,8 @@ document.querySelector(".t1c-cert-all").addEventListener("click", (ev) => {
     }else {
         resetParsedText();
         resetText();
-        getOberthur().allCerts().then(res => document.querySelector(".output-data-parsed").innerHTML = JSON.stringify(res.data, null, " "));
+        var queryParams = {rootCertificate: true, authenticationCertificate: true};
+        getOberthur().allCerts(queryParams).then(res => document.querySelector(".output-data-parsed").innerHTML = JSON.stringify(res.data, null, " "));
     }
 })
 
@@ -157,119 +158,32 @@ document.querySelector(".t1c-tx-auth").addEventListener("click", (ev) => {
         getOberthur().authenticate(data=authData)
             .then(res => {document.querySelector(".output-data-parsed").innerHTML = JSON.stringify(res.data, null, " ")},
                     err => {
-                        console.log("Error in verify PIN:", err)
+                        console.log("Error in authenticate:", err)
                         document.querySelector(".output-data").innerHTML = JSON.stringify(err, null, " ")
         });
     }
 })
-/*document.querySelector(".infoT1C").addEventListener("click", (ev) => {
-    console.log("Get T1C info")
-    core.info().then(res => {
-        document.querySelector(".output-data").innerHTML = JSON.stringify(res, undefined, 2);
-    });
 
-});
-
-document.querySelector(".initT1c").addEventListener("click", (ev) => {
-    console.log("Start initializing T1C")
-    
-    var configoptions = new T1CSdk.T1CConfigOptions(
-        environment.t1cApiUrl,
-        environment.t1cApiPort,
-        environment.t1cRpcPort,
-        undefined,
-        undefined,
-        pkcs11,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        true,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        "3.0.0",
-        undefined,
-    );
-
-    config = new T1CSdk.T1CConfig(configoptions);
-    //console.log(config);
-    //resetText();
-    T1CSdk.T1CClient.initialize(config).then(res => {
-        client = res;
-        console.log("Client config: ", client.localConfig)
-        core = client.core();
-
-        //show content pane
-        document.querySelector(".content").classList = "content"
-        document.querySelector(".infoT1C").classList.remove("hidden")
-    }, err => {
-        console.log("T1C error:", err)
-        if (err.code == 301 || err.code == 302) {
-            err.client.download("v3.0.1").then(res => {
-                let download = "Download the T1C here";
-                document.querySelector(".download").classList.remove("hidden")
-                document.querySelector(".download").innerHTML = download.link(res.url);
-            });
+document.querySelector(".t1c-tx-sign").addEventListener("click", (ev) => {
+    //show pin input and button
+    if(getOberthur()  === undefined) {
+        document.querySelector(".output-data").innerHTML = JSON.stringify("Select a reader", null, " ");
+    }else {
+        resetParsedText();
+        resetText();
+        var signData = {
+            "algorithm": "sha256",
+            "data":"I2e+u/sgy7fYgh+DWA0p2jzXQ7E=",
+            "osDialog":true
         }
-    });
-    //client.core().info.then(res => console.log(res))
-}, err => {
-    console.log(err)
-    document.querySelector(".output-data").innerHTML = JSON.stringify(err, null, " ")
-})
-
-//event listeners
-document.querySelector(".beid").addEventListener("click", (ev) => {
-    resetText();
-    var beid = client.beid(selected_reader.id);
-    var filter = [];
-    beid.allData({ filters: filter, parseCerts: false }).then(res => {
-        if (res.success) {
-            document.querySelector(".output-data").innerHTML = JSON.stringify(res.data, null, " ")
-        }
-    }, err => {
-        console.log("BEID error:", err)
-        document.querySelector(".output-data").innerHTML = JSON.stringify(err, null, " ")
-    })
-}, err => {
-    console.log(err)
-    document.querySelector(".output-data").innerHTML = JSON.stringify(err, null, " ")
-})
-
-document.querySelector(".beid-verify-pin").addEventListener("click", (ev) => {
-    resetText();
-    var beid = client.beid(selected_reader.id);
-    const pincode = getPin();
-    const dialog = pincode != null ? false : true
-    var data = {
-        pin: pincode,
-        os_dialog: dialog
+        getOberthur().sign(data=signData)
+            .then(res => {document.querySelector(".output-data-parsed").innerHTML = JSON.stringify(res.data, null, " ")},
+                err => {
+                    console.log("Error in sign:", err)
+                    document.querySelector(".output-data").innerHTML = JSON.stringify(err, null, " ")
+                });
     }
-    beid.verifyPin(data).then(pinRes => {
-        document.querySelector(".output-data").innerHTML = JSON.stringify(pinRes, null, " ")
-    }, err => {
-        console.error("pin error", err)
-        document.querySelector(".output-data").innerHTML = JSON.stringify(err, null, " ")
-    });
-}, err => {
-    document.querySelector(".output-data").innerHTML = JSON.stringify(err, null, " ")
 })
-
-
-document.querySelector(".beid-sign-data").addEventListener("click", (ev) => {
-    resetText();
-    var beid = client.beid(selected_reader.id);
-    const pin = getPin();
-    signData(client, selected_reader, pin);
-
-}, err => {
-    document.querySelector(".output-data").innerHTML = JSON.stringify(err, null, " ")
-})*/
 
 function getReaders() {
     core.readersCardAvailable().then(res => {
