@@ -142,46 +142,57 @@ document.querySelector(".t1c-tx-verify").addEventListener("click", (ev) => {
     }
 })
 
-// sha256 hash example
-// E1uHACbPvhLew0gGmBH83lvtKIAKxU2/RezfBOsT6Vs=
 document.querySelector(".t1c-tx-auth").addEventListener("click", (ev) => {
     //show pin input and button
-    if(getOberthur()  === undefined) {
+    if (getOberthur() === undefined) {
         document.querySelector(".output-data").innerHTML = JSON.stringify("Select a reader", null, " ");
-    }else {
+    } else {
         resetParsedText();
         resetText();
-        var authData = {
-            "algorithm": "sha256",
-            "data":"I2e+u/sgy7fYgh+DWA0p2jzXQ7E="
-        }
-        getOberthur().authenticate(data=authData)
-            .then(res => {document.querySelector(".output-data-parsed").innerHTML = JSON.stringify(res.data, null, " ")},
-                    err => {
-                        console.log("Error in authenticate:", err)
-                        document.querySelector(".output-data").innerHTML = JSON.stringify(err, null, " ")
-        });
+
+        getOberthur().authenticationCertificate().then(certres => {
+                var authData = {
+                    "algorithm": "sha256",
+                    "data": "E1uHACbPvhLew0gGmBH83lvtKIAKxU2/RezfBOsT6Vs=",
+                    "id": certres.data.id
+                }
+            getOberthur().authenticate(data = authData)
+                    .then(res => {
+                            document.querySelector(".output-data-parsed").innerHTML = JSON.stringify(res.data, null, " ")
+                        },
+                        err => {
+                            console.log("Error in sign:", err)
+                            document.querySelector(".output-data").innerHTML = JSON.stringify(err, null, " ")
+                        })
+            }
+        )
     }
 })
 
 document.querySelector(".t1c-tx-sign").addEventListener("click", (ev) => {
     //show pin input and button
-    if(getOberthur()  === undefined) {
+    if (getOberthur() === undefined) {
         document.querySelector(".output-data").innerHTML = JSON.stringify("Select a reader", null, " ");
-    }else {
+    } else {
         resetParsedText();
         resetText();
-        var signData = {
-            "algorithm": "sha256",
-            "data":"I2e+u/sgy7fYgh+DWA0p2jzXQ7E=",
-            "osDialog":true
-        }
-        getOberthur().sign(data=signData)
-            .then(res => {document.querySelector(".output-data-parsed").innerHTML = JSON.stringify(res.data, null, " ")},
-                err => {
-                    console.log("Error in sign:", err)
-                    document.querySelector(".output-data").innerHTML = JSON.stringify(err, null, " ")
-                });
+        getOberthur().signingCertificate().then(certres => {
+                var signData = {
+                    "algorithm": "sha256",
+                    "data": "E1uHACbPvhLew0gGmBH83lvtKIAKxU2/RezfBOsT6Vs=",
+                    "osDialog": true,
+                    "id": certres.data.id
+                }
+            getOberthur().sign(data = signData)
+                    .then(res => {
+                            document.querySelector(".output-data-parsed").innerHTML = JSON.stringify(res.data, null, " ")
+                        },
+                        err => {
+                            console.log("Error in sign:", err)
+                            document.querySelector(".output-data").innerHTML = JSON.stringify(err, null, " ")
+                        })
+            }
+        )
     }
 })
 
