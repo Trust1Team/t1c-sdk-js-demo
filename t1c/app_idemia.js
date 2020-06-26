@@ -24,104 +24,95 @@ var pkcs11 = null;
 let selected_reader = null
 
 document.querySelector(".t1c-cert-all").addEventListener("click", (ev) => {
-    if(getOberthur()  === undefined) {
+    if (getIdemia() === undefined) {
         document.querySelector(".output-data").innerHTML = JSON.stringify("Select a reader", null, " ");
-    }else {
+    } else {
         resetParsedText();
         resetText();
-        var queryParams = {query: rootCertificate, query: authenticationCertificate};
-        getOberthur().allCerts(queryParams).then(res => document.querySelector(".output-data-parsed").innerHTML = JSON.stringify(res.data, null, " "));
+        getIdemia().allCerts().then(res => document.querySelector(".output-data-parsed").innerHTML = JSON.stringify(res.data, null, " "));
     }
 })
 
 document.querySelector(".t1c-cert-root").addEventListener("click", (ev) => {
-    if(getOberthur()  === undefined) {
+    if (getIdemia() === undefined) {
         document.querySelector(".output-data").innerHTML = JSON.stringify("Select a reader", null, " ");
-    }else {
+    } else {
         resetParsedText();
         resetText();
-        getOberthur().rootCertificate().then(res => document.querySelector(".output-data-parsed").innerHTML = JSON.stringify(res.data, null, " "));
+        getIdemia().rootCertificate().then(res => document.querySelector(".output-data-parsed").innerHTML = JSON.stringify(res.data, null, " "));
     }
 })
 
 document.querySelector(".t1c-cert-issuer").addEventListener("click", (ev) => {
-    if(getOberthur()  === undefined) {
+    if (getIdemia() === undefined) {
         document.querySelector(".output-data").innerHTML = JSON.stringify("Select a reader", null, " ");
-    }else {
+    } else {
         resetParsedText();
         resetText();
-        getOberthur().issuerCertificate().then(res => document.querySelector(".output-data-parsed").innerHTML = JSON.stringify(res.data, null, " "));
+        getIdemia().issuerCertificate().then(res => document.querySelector(".output-data-parsed").innerHTML = JSON.stringify(res.data, null, " "));
     }
 })
 
 document.querySelector(".t1c-cert-auth").addEventListener("click", (ev) => {
-    if(getOberthur()  === undefined) {
+    if (getIdemia() === undefined) {
         document.querySelector(".output-data").innerHTML = JSON.stringify("Select a reader", null, " ");
-    }else {
+    } else {
         resetParsedText();
         resetText();
-        getOberthur().authenticationCertificate().then(res => document.querySelector(".output-data-parsed").innerHTML = JSON.stringify(res.data, null, " "));
+        getIdemia().authenticationCertificate().then(res => document.querySelector(".output-data-parsed").innerHTML = JSON.stringify(res.data, null, " "));
     }
 })
 
 document.querySelector(".t1c-cert-sign").addEventListener("click", (ev) => {
-    if(getOberthur()  === undefined) {
+    if (getIdemia() === undefined) {
         document.querySelector(".output-data").innerHTML = JSON.stringify("Select a reader", null, " ");
-    }else {
+    } else {
         resetParsedText();
         resetText();
-        getOberthur().signingCertificate().then(res => document.querySelector(".output-data-parsed").innerHTML = JSON.stringify(res.data, null, " "));
-    }
-})
-
-document.querySelector(".t1c-cert-enc").addEventListener("click", (ev) => {
-    if(getOberthur()  === undefined) {
-        document.querySelector(".output-data").innerHTML = JSON.stringify("Select a reader", null, " ");
-    }else {
-        resetParsedText();
-        resetText();
-        getOberthur().encryptionCertificate().then(res => document.querySelector(".output-data-parsed").innerHTML = JSON.stringify(res.data, null, " "));
+        getIdemia().signingCertificate().then(res => document.querySelector(".output-data-parsed").innerHTML = JSON.stringify(res.data, null, " "));
     }
 })
 
 document.querySelector(".t1c-filters-data").addEventListener("click", (ev) => {
-    if(getOberthur()  === undefined) {
+    if (getIdemia() === undefined) {
         document.querySelector(".output-data").innerHTML = JSON.stringify("Select a reader", null, " ");
-    }else {
+    } else {
         resetParsedText();
         resetText();
-        document.querySelector(".output-data").innerHTML = replaceAll((getOberthur().allDataFilters()).toString(), ",", '\n');
+        document.querySelector(".output-data").innerHTML = replaceAll((getIdemia().allDataFilters()).toString(), ",", '\n');
     }
 })
 
 document.querySelector(".t1c-filters-certs").addEventListener("click", (ev) => {
-    if(getOberthur()  === undefined) {
+    if (getIdemia() === undefined) {
         document.querySelector(".output-data").innerHTML = JSON.stringify("Select a reader", null, " ");
-    }else {
+    } else {
         resetParsedText();
         resetText();
-        document.querySelector(".output-data").innerHTML = replaceAll((getOberthur().allCertFilters()).toString(), ",", '\n');
+        document.querySelector(".output-data").innerHTML = replaceAll((getIdemia().allCertFilters()).toString(), ",", '\n');
     }
 })
 
 document.querySelector(".t1c-filters-keys").addEventListener("click", (ev) => {
-    if(getOberthur()  === undefined) {
+    if (getIdemia() === undefined) {
         document.querySelector(".output-data").innerHTML = JSON.stringify("Select a reader", null, " ");
-    }else {
+    } else {
         resetParsedText();
         resetText();
-        document.querySelector(".output-data").innerHTML = replaceAll((getOberthur().allKeyRefs()).toString(), ",", '\n');
+        document.querySelector(".output-data").innerHTML = replaceAll((getIdemia().allKeyRefs()).toString(), ",", '\n');
     }
 })
 
 //allAlgoRefsForAuthentication or allAlgoRefsForSigning are same underlying impl
 document.querySelector(".t1c-filters-algos").addEventListener("click", (ev) => {
-    if(getOberthur()  === undefined) {
+    if (getIdemia() === undefined) {
         document.querySelector(".output-data").innerHTML = JSON.stringify("Select a reader", null, " ");
-    }else {
+    } else {
         resetParsedText();
         resetText();
-        getOberthur().allAlgoRefsForAuthentication(body = {}).then(res => {document.querySelector(".output-data-parsed").innerHTML = JSON.stringify(res.data, null, " ")}, err => {
+        getIdemia().allAlgoRefsForAuthentication(body = {}).then(res => {
+            document.querySelector(".output-data-parsed").innerHTML = JSON.stringify(res.data, null, " ")
+        }, err => {
             console.log("Error in verify retrieveing supported algos:", err)
             document.querySelector(".output-data").innerHTML = JSON.stringify(err, null, " ")
         });
@@ -130,12 +121,14 @@ document.querySelector(".t1c-filters-algos").addEventListener("click", (ev) => {
 
 document.querySelector(".t1c-tx-verify").addEventListener("click", (ev) => {
     //show pin input and button
-    if(getOberthur()  === undefined) {
+    if (getIdemia() === undefined) {
         document.querySelector(".output-data").innerHTML = JSON.stringify("Select a reader", null, " ");
-    }else {
+    } else {
         resetParsedText();
         resetText();
-        getOberthur().verifyPin(body = {}).then(res => {document.querySelector(".output-data-parsed").innerHTML = JSON.stringify(res.data, null, " ")}, err => {
+        getIdemia().verifyPin(body = {}).then(res => {
+            document.querySelector(".output-data-parsed").innerHTML = JSON.stringify(res.data, null, " ")
+        }, err => {
             console.log("Error in verify PIN:", err)
             document.querySelector(".output-data").innerHTML = JSON.stringify(err, null, " ")
         });
@@ -146,42 +139,55 @@ document.querySelector(".t1c-tx-verify").addEventListener("click", (ev) => {
 // E1uHACbPvhLew0gGmBH83lvtKIAKxU2/RezfBOsT6Vs=
 document.querySelector(".t1c-tx-auth").addEventListener("click", (ev) => {
     //show pin input and button
-    if(getOberthur()  === undefined) {
+    if (getIdemia() === undefined) {
         document.querySelector(".output-data").innerHTML = JSON.stringify("Select a reader", null, " ");
-    }else {
+    } else {
         resetParsedText();
         resetText();
-        var authData = {
-            "algorithm": "sha256",
-            "data":"I2e+u/sgy7fYgh+DWA0p2jzXQ7E="
-        }
-        getOberthur().authenticate(data=authData)
-            .then(res => {document.querySelector(".output-data-parsed").innerHTML = JSON.stringify(res.data, null, " ")},
-                    err => {
-                        console.log("Error in authenticate:", err)
-                        document.querySelector(".output-data").innerHTML = JSON.stringify(err, null, " ")
-        });
+
+        getIdemia().authenticationCertificate().then(certres => {
+                var authData = {
+                    "algorithm": "sha256",
+                    "data": "E1uHACbPvhLew0gGmBH83lvtKIAKxU2/RezfBOsT6Vs=",
+                    "id": certres.data.id
+                }
+                getIdemia().authenticate(data = authData)
+                    .then(res => {
+                            document.querySelector(".output-data-parsed").innerHTML = JSON.stringify(res.data, null, " ")
+                        },
+                        err => {
+                            console.log("Error in sign:", err)
+                            document.querySelector(".output-data").innerHTML = JSON.stringify(err, null, " ")
+                        })
+            }
+        )
     }
 })
 
 document.querySelector(".t1c-tx-sign").addEventListener("click", (ev) => {
     //show pin input and button
-    if(getOberthur()  === undefined) {
+    if (getIdemia() === undefined) {
         document.querySelector(".output-data").innerHTML = JSON.stringify("Select a reader", null, " ");
-    }else {
+    } else {
         resetParsedText();
         resetText();
-        var signData = {
-            "algorithm": "sha256",
-            "data":"I2e+u/sgy7fYgh+DWA0p2jzXQ7E=",
-            "osDialog":true
-        }
-        getOberthur().sign(data=signData)
-            .then(res => {document.querySelector(".output-data-parsed").innerHTML = JSON.stringify(res.data, null, " ")},
-                err => {
-                    console.log("Error in sign:", err)
-                    document.querySelector(".output-data").innerHTML = JSON.stringify(err, null, " ")
-                });
+        getIdemia().signingCertificate().then(certres => {
+                var signData = {
+                    "algorithm": "sha256",
+                    "data": "E1uHACbPvhLew0gGmBH83lvtKIAKxU2/RezfBOsT6Vs=",
+                    "osDialog": true,
+                    "id": certres.data.id
+                }
+                getIdemia().sign(data = signData)
+                    .then(res => {
+                            document.querySelector(".output-data-parsed").innerHTML = JSON.stringify(res.data, null, " ")
+                        },
+                        err => {
+                            console.log("Error in sign:", err)
+                            document.querySelector(".output-data").innerHTML = JSON.stringify(err, null, " ")
+                        })
+            }
+        )
     }
 })
 
@@ -249,11 +255,12 @@ function readerClicked(name, id) {
     }
     document.querySelector(".badge").innerHTML = name;
     document.querySelector(".badge").classList = "badge badge-success";
-/*    document.querySelector(".beid").classList = "btn btn-primary beid";
-    document.querySelector(".beid-verify-pin").classList = "btn btn-primary beid-verify-pin";
-    document.querySelector(".beid-sign-data").classList = "btn btn-primary beid-sign-data";*/
+    /*    document.querySelector(".beid").classList = "btn btn-primary beid";
+        document.querySelector(".beid-verify-pin").classList = "btn btn-primary beid-verify-pin";
+        document.querySelector(".beid-sign-data").classList = "btn btn-primary beid-sign-data";*/
     document.querySelector(".readerWithCardsMenu").innerHTML = "Selected: " + name;
 }
+
 /*function signData(client, selected_reader, pin) {
     var beid = client.beid(selected_reader.id);
     const filter = ['root_certificate', 'citizen_certificate', 'non_repudiaton_certificate'];
@@ -293,6 +300,7 @@ function getPin() {
 function resetText() {
     document.querySelector(".output-data").innerHTML = "";
 }
+
 function resetParsedText() {
     document.querySelector(".output-data-parsed").innerHTML = "";
 }
@@ -305,9 +313,9 @@ function trimObj(obj) {
     }, Array.isArray(obj) ? [] : {});
 }
 
-function getOberthur() {
-    if(selected_reader === null || selected_reader === undefined) return undefined
-    else return client.oberthur(selected_reader.id);
+function getIdemia() {
+    if (selected_reader === null || selected_reader === undefined) return undefined
+    else return client.idemia(selected_reader.id);
 }
 
 function replaceAll(string, search, replace) {
@@ -344,7 +352,7 @@ function initT1C() {
         client = res;
         console.log("Client config: ", client.localConfig)
         core = client.core();
-        core.version().then(versionResult => console.log("Beid running on core "+ versionResult));
+        core.version().then(versionResult => console.log("Beid running on core " + versionResult));
         getReaders();
     }, err => {
         console.log("T1C error:", err)
