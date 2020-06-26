@@ -99,7 +99,11 @@
 
   <!-- Custom scripts for all pages-->
   <script src="js/sb-admin-2.min.js"></script>
-
+  <script>
+    $(function(){$("#includeSidebar").load("t1c_sidebar.html");});
+    $(function(){$("#includeFooter").load("t1c_footer.html");});
+    $(function(){$("#includeTop").load("t1c_top.html");});
+  </script>
 </body>
 
 </html>
