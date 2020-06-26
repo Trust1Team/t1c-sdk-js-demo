@@ -1,6 +1,6 @@
 {
-    "title": "SB Admin 2",
-    "name": "startbootstrap-sb-admin-2",
+    "title": "T1C Demo App",
+    "name": "t1c-sdk-js-demo",
     "version": "4.1.1",
     "scripts": {
         "start": "node_modules/.bin/gulp watch"
