@@ -27,7 +27,8 @@ document.querySelector(".beid-all-data").addEventListener("click", (ev) => {
     if(getBeid()  === undefined) {
         document.querySelector(".output-data").innerHTML = JSON.stringify("Select a reader", null, " ");
     }else {
-        getBeid().allData().then(res => document.querySelector(".output-data").innerHTML = JSON.stringify(res.data, null, " "));
+        getBeid().allData().then(res => document.querySelector(".output-data").innerHTML = JSON.stringify(res.data, null, " "))
+            .catch(err => document.querySelector(".output-data").innerHTML = JSON.stringify(err, null, " "));
     }
 })
 
@@ -35,7 +36,8 @@ document.querySelector(".beid-data-biometric").addEventListener("click", (ev) =>
     if(getBeid()  === undefined) {
         document.querySelector(".output-data").innerHTML = JSON.stringify("Select a reader", null, " ");
     }else {
-        getBeid().biometric().then(res => document.querySelector(".output-data").innerHTML = JSON.stringify(res.data, null, " "));
+        getBeid().biometric().then(res => document.querySelector(".output-data").innerHTML = JSON.stringify(res.data, null, " "))
+            .catch(err => document.querySelector(".output-data").innerHTML = JSON.stringify(err, null, " "));
     }
 })
 
@@ -43,7 +45,8 @@ document.querySelector(".beid-data-picture").addEventListener("click", (ev) => {
     if(getBeid()  === undefined) {
         document.querySelector(".output-data").innerHTML = JSON.stringify("Select a reader", null, " ");
     }else {
-        getBeid().picture().then(res => document.querySelector(".output-data").innerHTML = JSON.stringify(res.data, null, " "));
+        getBeid().picture().then(res => document.querySelector(".output-data").innerHTML = JSON.stringify(res.data, null, " "))
+            .catch(err => document.querySelector(".output-data").innerHTML = JSON.stringify(err, null, " "));
     }
 })
 
@@ -51,7 +54,8 @@ document.querySelector(".beid-data-address").addEventListener("click", (ev) => {
     if(getBeid()  === undefined) {
         document.querySelector(".output-data").innerHTML = JSON.stringify("Select a reader", null, " ");
     }else {
-        getBeid().address().then(res => document.querySelector(".output-data").innerHTML = JSON.stringify(res.data, null, " "));
+        getBeid().address().then(res => document.querySelector(".output-data").innerHTML = JSON.stringify(res.data, null, " "))
+            .catch(err => document.querySelector(".output-data").innerHTML = JSON.stringify(err, null, " "));
     }
 })
 
@@ -59,7 +63,8 @@ document.querySelector(".beid-certificate-nonrep").addEventListener("click", (ev
     if(getBeid()  === undefined) {
         document.querySelector(".output-data").innerHTML = JSON.stringify("Select a reader", null, " ");
     }else {
-        getBeid().nonRepudiationCertificate().then(res => document.querySelector(".output-data").innerHTML = JSON.stringify(res.data, null, " "));
+        getBeid().nonRepudiationCertificate().then(res => document.querySelector(".output-data").innerHTML = JSON.stringify(res.data, null, " "))
+            .catch(err => document.querySelector(".output-data").innerHTML = JSON.stringify(err, null, " "));
     }
 })
 
@@ -67,7 +72,8 @@ document.querySelector(".beid-certificate-enc").addEventListener("click", (ev) =
     if(getBeid()  === undefined) {
         document.querySelector(".output-data").innerHTML = JSON.stringify("Select a reader", null, " ");
     }else {
-        getBeid().encryptionCertificate().then(res => document.querySelector(".output-data").innerHTML = JSON.stringify(res.data, null, " "));
+        getBeid().encryptionCertificate().then(res => document.querySelector(".output-data").innerHTML = JSON.stringify(res.data, null, " "))
+            .catch(err => document.querySelector(".output-data").innerHTML = JSON.stringify(err, null, " "));
     }
 })
 
@@ -75,7 +81,8 @@ document.querySelector(".beid-certificate-inter").addEventListener("click", (ev)
     if(getBeid()  === undefined) {
         document.querySelector(".output-data").innerHTML = JSON.stringify("Select a reader", null, " ");
     }else {
-        getBeid().intermediateCertificates().then(res => document.querySelector(".output-data").innerHTML = JSON.stringify(res.data, null, " "));
+        getBeid().intermediateCertificates().then(res => document.querySelector(".output-data").innerHTML = JSON.stringify(res.data, null, " "))
+            .catch(err => document.querySelector(".output-data").innerHTML = JSON.stringify(err, null, " "));
     }
 })
 
@@ -83,7 +90,8 @@ document.querySelector(".beid-certificate-auth").addEventListener("click", (ev) 
     if(getBeid()  === undefined) {
         document.querySelector(".output-data").innerHTML = JSON.stringify("Select a reader", null, " ");
     }else {
-        getBeid().authenticationCertificate().then(res => document.querySelector(".output-data").innerHTML = JSON.stringify(res.data, null, " "));
+        getBeid().authenticationCertificate().then(res => document.querySelector(".output-data").innerHTML = JSON.stringify(res.data, null, " "))
+            .catch(err => document.querySelector(".output-data").innerHTML = JSON.stringify(err, null, " "));
     }
 })
 
@@ -92,7 +100,8 @@ document.querySelector(".beid-certificate-root").addEventListener("click", (ev) 
     if(getBeid()  === undefined) {
         document.querySelector(".output-data").innerHTML = JSON.stringify("Select a reader", null, " ");
     }else {
-        getBeid().rootCertificate().then(res => document.querySelector(".output-data").innerHTML = JSON.stringify(res.data, null, " "));
+        getBeid().rootCertificate().then(res => document.querySelector(".output-data").innerHTML = JSON.stringify(res.data, null, " "))
+            .catch(err => document.querySelector(".output-data").innerHTML = JSON.stringify(err, null, " "));
     }
 })
 
@@ -100,7 +109,8 @@ document.querySelector(".beid-transaction-verify").addEventListener("click", (ev
     if(getBeid()  === undefined) {
         document.querySelector(".output-data").innerHTML = JSON.stringify("Select a reader", null, " ");
     }else {
-        getBeid().verifyPin({osDialog: true}).then(res => document.querySelector(".output-data").innerHTML = JSON.stringify(res.data, null, " "));
+        getBeid().verifyPin({osDialog: true}).then(res => document.querySelector(".output-data").innerHTML = JSON.stringify(res.data, null, " "))
+            .catch(err => document.querySelector(".output-data").innerHTML = JSON.stringify(err, null, " "));
     }
 })
 
@@ -108,7 +118,8 @@ document.querySelector(".beid-transaction-sign").addEventListener("click", (ev) 
     if(getBeid()  === undefined) {
         document.querySelector(".output-data").innerHTML = JSON.stringify("Select a reader", null, " ");
     }else {
-        getBeid().sign({algorithm: 'sha256', data: "E1uHACbPvhLew0gGmBH83lvtKIAKxU2/RezfBOsT6Vs=", osDialog: true}).then(res => document.querySelector(".output-data").innerHTML = JSON.stringify(res.data, null, " "));
+        getBeid().sign({algorithm: 'sha256', data: "E1uHACbPvhLew0gGmBH83lvtKIAKxU2/RezfBOsT6Vs=", osDialog: true}).then(res => document.querySelector(".output-data").innerHTML = JSON.stringify(res.data, null, " "))
+            .catch(err => document.querySelector(".output-data").innerHTML = JSON.stringify(err, null, " "));
     }
 })
 
@@ -116,7 +127,8 @@ document.querySelector(".beid-transaction-auth").addEventListener("click", (ev) 
     if(getBeid()  === undefined) {
         document.querySelector(".output-data").innerHTML = JSON.stringify("Select a reader", null, " ");
     }else {
-        getBeid().authenticate({algorithm: 'sha256', data: "E1uHACbPvhLew0gGmBH83lvtKIAKxU2/RezfBOsT6Vs=", osDialog: true}).then(res => document.querySelector(".output-data").innerHTML = JSON.stringify(res.data, null, " "));
+        getBeid().authenticate({algorithm: 'sha256', data: "E1uHACbPvhLew0gGmBH83lvtKIAKxU2/RezfBOsT6Vs=", osDialog: true}).then(res => document.querySelector(".output-data").innerHTML = JSON.stringify(res.data, null, " "))
+            .catch(err => document.querySelector(".output-data").innerHTML = JSON.stringify(err, null, " "));
     }
 })
 
