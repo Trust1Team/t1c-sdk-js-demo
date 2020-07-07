@@ -31,121 +31,95 @@ document.querySelector(".beid-all-data").addEventListener("click", (ev) => {
     }
 })
 
-document.querySelector(".beid-data-rn").addEventListener("click", (ev) => {
+document.querySelector(".beid-data-biometric").addEventListener("click", (ev) => {
     if(getBeid()  === undefined) {
         document.querySelector(".output-data").innerHTML = JSON.stringify("Select a reader", null, " ");
     }else {
-        getBeid().rnData().then(res => document.querySelector(".output-data").innerHTML = JSON.stringify(res.data, null, " "));
+        getBeid().biometric().then(res => document.querySelector(".output-data").innerHTML = JSON.stringify(res.data, null, " "));
     }
 })
-/*document.querySelector(".infoT1C").addEventListener("click", (ev) => {
-    console.log("Get T1C info")
-    core.info().then(res => {
-        document.querySelector(".output-data").innerHTML = JSON.stringify(res, undefined, 2);
-    });
 
-});
-
-document.querySelector(".initT1c").addEventListener("click", (ev) => {
-    console.log("Start initializing T1C")
-    
-    var configoptions = new T1CSdk.T1CConfigOptions(
-        environment.t1cApiUrl,
-        environment.t1cApiPort,
-        environment.t1cRpcPort,
-        undefined,
-        undefined,
-        pkcs11,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        true,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        "3.0.0",
-        undefined,
-    );
-
-    config = new T1CSdk.T1CConfig(configoptions);
-    //console.log(config);
-    //resetText();
-    T1CSdk.T1CClient.initialize(config).then(res => {
-        client = res;
-        console.log("Client config: ", client.localConfig)
-        core = client.core();
-
-        //show content pane
-        document.querySelector(".content").classList = "content"
-        document.querySelector(".infoT1C").classList.remove("hidden")
-    }, err => {
-        console.log("T1C error:", err)
-        if (err.code == 301 || err.code == 302) {
-            err.client.download("v3.0.1").then(res => {
-                let download = "Download the T1C here";
-                document.querySelector(".download").classList.remove("hidden")
-                document.querySelector(".download").innerHTML = download.link(res.url);
-            });
-        }
-    });
-    //client.core().info.then(res => console.log(res))
-}, err => {
-    console.log(err)
-    document.querySelector(".output-data").innerHTML = JSON.stringify(err, null, " ")
-})
-
-//event listeners
-document.querySelector(".beid").addEventListener("click", (ev) => {
-    resetText();
-    var beid = client.beid(selected_reader.id);
-    var filter = [];
-    beid.allData({ filters: filter, parseCerts: false }).then(res => {
-        if (res.success) {
-            document.querySelector(".output-data").innerHTML = JSON.stringify(res.data, null, " ")
-        }
-    }, err => {
-        console.log("BEID error:", err)
-        document.querySelector(".output-data").innerHTML = JSON.stringify(err, null, " ")
-    })
-}, err => {
-    console.log(err)
-    document.querySelector(".output-data").innerHTML = JSON.stringify(err, null, " ")
-})
-
-document.querySelector(".beid-verify-pin").addEventListener("click", (ev) => {
-    resetText();
-    var beid = client.beid(selected_reader.id);
-    const pincode = getPin();
-    const dialog = pincode != null ? false : true
-    var data = {
-        pin: pincode,
-        os_dialog: dialog
+document.querySelector(".beid-data-picture").addEventListener("click", (ev) => {
+    if(getBeid()  === undefined) {
+        document.querySelector(".output-data").innerHTML = JSON.stringify("Select a reader", null, " ");
+    }else {
+        getBeid().picture().then(res => document.querySelector(".output-data").innerHTML = JSON.stringify(res.data, null, " "));
     }
-    beid.verifyPin(data).then(pinRes => {
-        document.querySelector(".output-data").innerHTML = JSON.stringify(pinRes, null, " ")
-    }, err => {
-        console.error("pin error", err)
-        document.querySelector(".output-data").innerHTML = JSON.stringify(err, null, " ")
-    });
-}, err => {
-    document.querySelector(".output-data").innerHTML = JSON.stringify(err, null, " ")
+})
+
+document.querySelector(".beid-data-address").addEventListener("click", (ev) => {
+    if(getBeid()  === undefined) {
+        document.querySelector(".output-data").innerHTML = JSON.stringify("Select a reader", null, " ");
+    }else {
+        getBeid().address().then(res => document.querySelector(".output-data").innerHTML = JSON.stringify(res.data, null, " "));
+    }
+})
+
+document.querySelector(".beid-certificate-nonrep").addEventListener("click", (ev) => {
+    if(getBeid()  === undefined) {
+        document.querySelector(".output-data").innerHTML = JSON.stringify("Select a reader", null, " ");
+    }else {
+        getBeid().nonRepudiationCertificate().then(res => document.querySelector(".output-data").innerHTML = JSON.stringify(res.data, null, " "));
+    }
+})
+
+document.querySelector(".beid-certificate-enc").addEventListener("click", (ev) => {
+    if(getBeid()  === undefined) {
+        document.querySelector(".output-data").innerHTML = JSON.stringify("Select a reader", null, " ");
+    }else {
+        getBeid().encryptionCertificate().then(res => document.querySelector(".output-data").innerHTML = JSON.stringify(res.data, null, " "));
+    }
+})
+
+document.querySelector(".beid-certificate-inter").addEventListener("click", (ev) => {
+    if(getBeid()  === undefined) {
+        document.querySelector(".output-data").innerHTML = JSON.stringify("Select a reader", null, " ");
+    }else {
+        getBeid().intermediateCertificates().then(res => document.querySelector(".output-data").innerHTML = JSON.stringify(res.data, null, " "));
+    }
+})
+
+document.querySelector(".beid-certificate-auth").addEventListener("click", (ev) => {
+    if(getBeid()  === undefined) {
+        document.querySelector(".output-data").innerHTML = JSON.stringify("Select a reader", null, " ");
+    }else {
+        getBeid().authenticationCertificate().then(res => document.querySelector(".output-data").innerHTML = JSON.stringify(res.data, null, " "));
+    }
 })
 
 
-document.querySelector(".beid-sign-data").addEventListener("click", (ev) => {
-    resetText();
-    var beid = client.beid(selected_reader.id);
-    const pin = getPin();
-    signData(client, selected_reader, pin);
+document.querySelector(".beid-certificate-root").addEventListener("click", (ev) => {
+    if(getBeid()  === undefined) {
+        document.querySelector(".output-data").innerHTML = JSON.stringify("Select a reader", null, " ");
+    }else {
+        getBeid().rootCertificate().then(res => document.querySelector(".output-data").innerHTML = JSON.stringify(res.data, null, " "));
+    }
+})
 
-}, err => {
-    document.querySelector(".output-data").innerHTML = JSON.stringify(err, null, " ")
-})*/
+document.querySelector(".beid-transaction-verify").addEventListener("click", (ev) => {
+    if(getBeid()  === undefined) {
+        document.querySelector(".output-data").innerHTML = JSON.stringify("Select a reader", null, " ");
+    }else {
+        getBeid().verifyPin({osDialog: true}).then(res => document.querySelector(".output-data").innerHTML = JSON.stringify(res.data, null, " "));
+    }
+})
+
+document.querySelector(".beid-transaction-sign").addEventListener("click", (ev) => {
+    if(getBeid()  === undefined) {
+        document.querySelector(".output-data").innerHTML = JSON.stringify("Select a reader", null, " ");
+    }else {
+        getBeid().sign({algorithm: 'sha256', data: "E1uHACbPvhLew0gGmBH83lvtKIAKxU2/RezfBOsT6Vs=", osDialog: true}).then(res => document.querySelector(".output-data").innerHTML = JSON.stringify(res.data, null, " "));
+    }
+})
+
+document.querySelector(".beid-transaction-auth").addEventListener("click", (ev) => {
+    if(getBeid()  === undefined) {
+        document.querySelector(".output-data").innerHTML = JSON.stringify("Select a reader", null, " ");
+    }else {
+        getBeid().authenticate({algorithm: 'sha256', data: "E1uHACbPvhLew0gGmBH83lvtKIAKxU2/RezfBOsT6Vs=", osDialog: true}).then(res => document.querySelector(".output-data").innerHTML = JSON.stringify(res.data, null, " "));
+    }
+})
+
 
 function getReaders() {
     core.readersCardAvailable().then(res => {
@@ -167,7 +141,7 @@ function getReaders() {
 document.querySelector(".readerWithCardsMenu").addEventListener("click", (ev) => {
     core.readersCardAvailable().then(res => {
         if (res.success) {
-            console.log(res.data);
+            // console.log(res.data);
             resetReaderList();
             if (res.data.length > 0) {
                 for (var i = 0; i < res.data.length > 0; i++) {
@@ -211,9 +185,6 @@ function readerClicked(name, id) {
     }
     document.querySelector(".badge").innerHTML = name;
     document.querySelector(".badge").classList = "badge badge-success";
-/*    document.querySelector(".beid").classList = "btn btn-primary beid";
-    document.querySelector(".beid-verify-pin").classList = "btn btn-primary beid-verify-pin";
-    document.querySelector(".beid-sign-data").classList = "btn btn-primary beid-sign-data";*/
     document.querySelector(".readerWithCardsMenu").innerHTML = "Selected: " + name;
 }
 /*function signData(client, selected_reader, pin) {
@@ -301,8 +272,6 @@ function initBeid() {
         core = client.core();
         core.version().then(versionResult => console.log("Beid running on core "+ versionResult));
         getReaders();
-        var beid = client.beid("1354a0441b185201");
-        beid.allData().then(result => console.log(result.data));
     }, err => {
         console.log("T1C error:", err)
         if (err.code == 301 || err.code == 302) {
