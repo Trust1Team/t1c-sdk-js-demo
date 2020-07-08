@@ -32,6 +32,15 @@ document.querySelector(".beid-all-data").addEventListener("click", (ev) => {
     }
 })
 
+document.querySelector(".beid-data-token").addEventListener("click", (ev) => {
+    if(getBeid()  === undefined) {
+        document.querySelector(".output-data").innerHTML = JSON.stringify("Select a reader", null, " ");
+    }else {
+        getBeid().tokenData().then(res => document.querySelector(".output-data").innerHTML = JSON.stringify(res.data, null, " "))
+            .catch(err => document.querySelector(".output-data").innerHTML = JSON.stringify(err, null, " "));
+    }
+})
+
 document.querySelector(".beid-data-biometric").addEventListener("click", (ev) => {
     if(getBeid()  === undefined) {
         document.querySelector(".output-data").innerHTML = JSON.stringify("Select a reader", null, " ");
@@ -101,6 +110,15 @@ document.querySelector(".beid-certificate-root").addEventListener("click", (ev) 
         document.querySelector(".output-data").innerHTML = JSON.stringify("Select a reader", null, " ");
     }else {
         getBeid().rootCertificate().then(res => document.querySelector(".output-data").innerHTML = JSON.stringify(res.data, null, " "))
+            .catch(err => document.querySelector(".output-data").innerHTML = JSON.stringify(err, null, " "));
+    }
+})
+
+document.querySelector(".beid-all-certs").addEventListener("click", (ev) => {
+    if(getBeid()  === undefined) {
+        document.querySelector(".output-data").innerHTML = JSON.stringify("Select a reader", null, " ");
+    }else {
+        getBeid().allCerts().then(res => document.querySelector(".output-data").innerHTML = JSON.stringify(res.data, null, " "))
             .catch(err => document.querySelector(".output-data").innerHTML = JSON.stringify(err, null, " "));
     }
 })
