@@ -5767,11 +5767,11 @@ __export(__webpack_require__(100));
 __export(__webpack_require__(200));
 __export(__webpack_require__(201));
 __export(__webpack_require__(103));
-__export(__webpack_require__(207));
+__export(__webpack_require__(208));
 __export(__webpack_require__(98));
 __export(__webpack_require__(45));
 __export(__webpack_require__(99));
-__export(__webpack_require__(208));
+__export(__webpack_require__(209));
 Polyfills_1.Polyfills.check();
 
 
@@ -10248,6 +10248,9 @@ var T1CClient = (function () {
         this.mf = function () {
             return _this.moduleFactory;
         };
+        this.fileex = function () {
+            return _this.moduleFactory.createFileExchange();
+        };
         this.beid = function (reader_id) {
             return _this.moduleFactory.createEidBE(reader_id);
         };
@@ -10313,6 +10316,7 @@ var Aventra_1 = __webpack_require__(203);
 var Oberthur_1 = __webpack_require__(204);
 var Idemia_1 = __webpack_require__(205);
 var Emv_1 = __webpack_require__(206);
+var FileExchange_1 = __webpack_require__(207);
 var CONTAINER_NEW_CONTEXT_PATH = '/modules/';
 var CONTAINER_BEID = CONTAINER_NEW_CONTEXT_PATH + 'beid';
 var CONTAINER_BELAWYER = CONTAINER_NEW_CONTEXT_PATH + 'diplad';
@@ -10321,7 +10325,7 @@ var CONTAINER_DNIE = CONTAINER_NEW_CONTEXT_PATH + 'dnie';
 var CONTAINER_EMV = CONTAINER_NEW_CONTEXT_PATH + 'emv';
 var CONTAINER_WACOM = CONTAINER_NEW_CONTEXT_PATH + 'wacom-stu';
 var CONTAINER_ISABEL = CONTAINER_NEW_CONTEXT_PATH + 'isabel';
-var CONTAINER_FILE_EXCHANGE = CONTAINER_NEW_CONTEXT_PATH + 'file-exchange';
+var CONTAINER_FILE_EXCHANGE = CONTAINER_NEW_CONTEXT_PATH + 'fileexchange';
 var CONTAINER_LUXTRUST = CONTAINER_NEW_CONTEXT_PATH + 'luxtrust';
 var CONTAINER_MOBIB = CONTAINER_NEW_CONTEXT_PATH + 'mobib';
 var CONTAINER_OCRA = CONTAINER_NEW_CONTEXT_PATH + 'ocra';
@@ -10354,6 +10358,9 @@ var ModuleFactory = (function () {
     };
     ModuleFactory.prototype.createEmv = function (reader_id) {
         return new Emv_1.Emv(this.url, CONTAINER_EMV, this.connection, reader_id);
+    };
+    ModuleFactory.prototype.createFileExchange = function () {
+        return new FileExchange_1.FileExchange(this.url, CONTAINER_FILE_EXCHANGE, this.connection);
     };
     return ModuleFactory;
 }());
@@ -10731,6 +10738,123 @@ exports.Emv = Emv;
 
 "use strict";
 
+Object.defineProperty(exports, "__esModule", { value: true });
+var FileExchange = (function () {
+    function FileExchange(baseUrl, containerUrl, connection) {
+        this.baseUrl = baseUrl;
+        this.containerUrl = containerUrl;
+        this.connection = connection;
+    }
+    FileExchange.prototype.copyFile = function (entity, fromType, toType, fileName, newFileName, fromRelPath, toRelPath, callback) {
+        var body = { entity: entity, fromType: fromType, toType: toType, fileName: fileName, newFileName: newFileName, fromRelPath: fromRelPath, toRelPath: toRelPath };
+        return this.connection.post(this.baseUrl, this.fileApp(FileExchange.FILECOPY), body, undefined, undefined, callback);
+    };
+    FileExchange.prototype.createDir = function (entity, type, relPath, recursive, callback) {
+        var body = { entity: entity, type: type, relPath: relPath, recursive: recursive };
+        return this.connection.post(this.baseUrl, this.fileApp(FileExchange.DIRCREATE), body, undefined, undefined, callback);
+    };
+    FileExchange.prototype.createType = function (entity, type, iniTabsPath, modal, timeout, callback) {
+        var body = { entity: entity, type: type, modal: modal, timeout: timeout, iniTabsPath: iniTabsPath };
+        return this.connection.post(this.baseUrl, this.fileApp(FileExchange.TYPECREATE), body, undefined, undefined, callback);
+    };
+    FileExchange.prototype.createTypeDirs = function (entity, type, relPath, modal, timeout, callback) {
+        var body = { entity: entity, type: type, modal: modal, timeout: timeout, relPath: relPath };
+        return this.connection.post(this.baseUrl, this.fileApp(FileExchange.TYPEDIRSCREATE), body, undefined, undefined, callback);
+    };
+    FileExchange.prototype.deleteType = function (entity, type, callback) {
+        var body = { entity: entity, type: type };
+        return this.connection.post(this.baseUrl, this.fileApp(FileExchange.TYPEDELETE), body, undefined, undefined, callback);
+    };
+    FileExchange.prototype.download = function (entity, type, file, fileName, relPath, implicitCreationType, notifyOnCompletion, callback) {
+        var body = { entity: entity, type: type, file: file, fileName: fileName, relPath: relPath, implicitCreationType: implicitCreationType, notifyOnCompletion: notifyOnCompletion };
+        return this.connection.post(this.baseUrl, this.fileApp(FileExchange.DOWNLOAD), body, undefined, undefined, callback);
+    };
+    FileExchange.prototype.existsFile = function (entity, type, relPath, callback) {
+        var body = { entity: entity, type: type, relPath: relPath };
+        return this.connection.post(this.baseUrl, this.fileApp(FileExchange.FILEEXISTS), body, undefined, undefined, callback);
+    };
+    FileExchange.prototype.existsType = function (entity, type, callback) {
+        var body = { entity: entity, type: type };
+        return this.connection.post(this.baseUrl, this.fileApp(FileExchange.TYPEEXISTS), body, undefined, undefined, callback);
+    };
+    FileExchange.prototype.getAccessMode = function (entity, type, fileName, relPath, callback) {
+        var body = { entity: entity, type: type, fileName: fileName, relPath: relPath };
+        return this.connection.post(this.baseUrl, this.fileApp(FileExchange.ACCESSMODE), body, undefined, undefined, callback);
+    };
+    FileExchange.prototype.getFileInfo = function (entity, type, fileName, relPath, callback) {
+        var body = { entity: entity, type: type, fileName: fileName, relPath: relPath };
+        return this.connection.post(this.baseUrl, this.fileApp(FileExchange.FILEINFO), body, undefined, undefined, callback);
+    };
+    FileExchange.prototype.listContent = function (entity, page, callback) {
+        var body = { entity: entity, page: page };
+        return this.connection.post(this.baseUrl, this.fileApp(FileExchange.CONTENTLIST), body, undefined, undefined, callback);
+    };
+    FileExchange.prototype.listType = function (entity, type, callback) {
+        var body = { entity: entity, type: type };
+        return this.connection.post(this.baseUrl, this.fileApp(FileExchange.TYPELIST), body, undefined, undefined, callback);
+    };
+    FileExchange.prototype.listTypeContent = function (entity, type, relPath, page, callback) {
+        var body = { entity: entity, type: type, relPath: relPath, page: page };
+        return this.connection.post(this.baseUrl, this.fileApp(FileExchange.TYPECONTENTLIST), body, undefined, undefined, callback);
+    };
+    FileExchange.prototype.listTypes = function (entity, page, callback) {
+        var body = { entity: entity, page: page };
+        return this.connection.post(this.baseUrl, this.fileApp(FileExchange.TYPESLIST), body, undefined, undefined, callback);
+    };
+    FileExchange.prototype.moveFile = function (entity, fromType, toType, fileName, fromRelPath, toRelPath, callback) {
+        var body = { entity: entity, fromType: fromType, toType: toType, fileName: fileName, fromRelPath: fromRelPath, toRelPath: toRelPath };
+        return this.connection.post(this.baseUrl, this.fileApp(FileExchange.FILEMOVE), body, undefined, undefined, callback);
+    };
+    FileExchange.prototype.renameFile = function (entity, type, fileName, newFileName, relPath, callback) {
+        var body = { entity: entity, type: type, fileName: fileName, newFileName: newFileName, relPath: relPath };
+        return this.connection.post(this.baseUrl, this.fileApp(FileExchange.FILERENAME), body, undefined, undefined, callback);
+    };
+    FileExchange.prototype.updateType = function (entity, type, timeout, callback) {
+        var body = { entity: entity, type: type, timeout: timeout };
+        return this.connection.post(this.baseUrl, this.fileApp(FileExchange.TYPEUPDATE), body, undefined, undefined, callback);
+    };
+    FileExchange.prototype.upload = function (entity, type, fileName, relPath, notifyOnCompletion, callback) {
+        var body = { entity: entity, type: type, fileName: fileName, relPath: relPath, notifyOnCompletion: notifyOnCompletion };
+        return this.connection.post(this.baseUrl, this.fileApp(FileExchange.UPLOAD), body, undefined, undefined, callback);
+    };
+    FileExchange.prototype.fileApp = function (path) {
+        var suffix = this.containerUrl;
+        suffix += FileExchange.PATHFILEAPP;
+        if (path && path.length) {
+            suffix += path.startsWith('/') ? path : '/' + path;
+        }
+        return suffix;
+    };
+    FileExchange.PATHFILEAPP = '/apps/file';
+    FileExchange.DOWNLOAD = '/download';
+    FileExchange.UPLOAD = '/upload';
+    FileExchange.TYPECREATE = '/create-type';
+    FileExchange.TYPEDIRSCREATE = '/create-type-dirs';
+    FileExchange.TYPEUPDATE = '/update-type';
+    FileExchange.TYPESLIST = '/list-types';
+    FileExchange.TYPELIST = '/list-type';
+    FileExchange.TYPECONTENTLIST = '/list-type-content';
+    FileExchange.CONTENTLIST = '/list-content';
+    FileExchange.TYPEDELETE = '/delete-type';
+    FileExchange.TYPEEXISTS = '/exist-type';
+    FileExchange.FILEEXISTS = '/exist-file';
+    FileExchange.FILEMOVE = '/move-file';
+    FileExchange.FILECOPY = '/copy-file';
+    FileExchange.FILERENAME = '/rename-file';
+    FileExchange.ACCESSMODE = '/get-access-mode';
+    FileExchange.DIRCREATE = '/create-dir';
+    FileExchange.FILEINFO = '/get-file-info';
+    return FileExchange;
+}());
+exports.FileExchange = FileExchange;
+
+
+/***/ }),
+/* 208 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -10955,7 +11079,7 @@ exports.BiometricDataResponse = BiometricDataResponse;
 
 
 /***/ }),
-/* 208 */
+/* 209 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
