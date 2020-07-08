@@ -3510,8 +3510,7 @@ exports.f = {}.propertyIsEnumerable;
 Object.defineProperty(exports, "__esModule", { value: true });
 var ObjectUtil_1 = __webpack_require__(98);
 var T1CLibException = (function () {
-    function T1CLibException(status, code, description, client) {
-        this.status = status;
+    function T1CLibException(code, description, client) {
         this.code = code;
         this.description = description;
         this.client = client;
@@ -4507,42 +4506,15 @@ var GenericConnection = (function () {
                         return resolve(response.data);
                     })
                         .catch(function (error) {
+                        var _a, _b, _c, _d;
                         if (!error.code && !error.response) {
-                            var thrownError = new CoreExceptions_1.T1CLibException(500, '999', 'Network error occurred. Request could not be completed');
+                            var thrownError = new CoreExceptions_1.T1CLibException("900", 'Internal error');
                             callback(thrownError, null);
                             return reject(thrownError);
                         }
                         else {
-                            if (error.response) {
-                                if (error.response.data) {
-                                    if (error.response.data.message) {
-                                        callback(new CoreExceptions_1.T1CLibException(500, '' +
-                                            (error.response.data.code || error.code || '998'), error.response.data.message), undefined);
-                                        return reject(new CoreExceptions_1.T1CLibException(500, '' +
-                                            (error.response.data.code || error.code || '998'), error.response.data.message));
-                                    }
-                                    else if (error.response.data.description) {
-                                        callback(new CoreExceptions_1.T1CLibException(500, '' +
-                                            (error.response.data.code || error.code || '998'), error.response.data.description), null);
-                                        return reject(new CoreExceptions_1.T1CLibException(500, '' +
-                                            (error.response.data.code || error.code || '998'), error.response.data.description));
-                                    }
-                                    else {
-                                        callback(new CoreExceptions_1.T1CLibException(500, '' +
-                                            (error.response.data.code || error.code || '998'), error.response.data), null);
-                                        return reject(new CoreExceptions_1.T1CLibException(500, '' +
-                                            (error.response.data.code || error.code || '998'), error.response.data));
-                                    }
-                                }
-                                else {
-                                    callback(new CoreExceptions_1.T1CLibException(500, '' + error.code || '998', JSON.stringify(error.response)), null);
-                                    return reject(new CoreExceptions_1.T1CLibException(500, '' + error.code || '998', JSON.stringify(error.response)));
-                                }
-                            }
-                            else {
-                                callback(new CoreExceptions_1.T1CLibException(500, '' + error.code || '998', JSON.stringify(error)), null);
-                                return reject(new CoreExceptions_1.T1CLibException(500, '' + error.code || '998', JSON.stringify(error)));
-                            }
+                            callback(new CoreExceptions_1.T1CLibException((_a = error.response) === null || _a === void 0 ? void 0 : _a.data.code, (_b = error.response) === null || _b === void 0 ? void 0 : _b.data.description), null);
+                            return reject(new CoreExceptions_1.T1CLibException((_c = error.response) === null || _c === void 0 ? void 0 : _c.data.code, (_d = error.response) === null || _d === void 0 ? void 0 : _d.data.description));
                         }
                     });
                 }, function (err) {
@@ -4553,7 +4525,6 @@ var GenericConnection = (function () {
         else {
             var agentPortError = {
                 description: 'Running in Citrix environment but no Agent port was defined in config.',
-                status: 400,
                 code: '801',
             };
             callback(agentPortError, null);
@@ -4812,7 +4783,6 @@ var LocalTestConnection = (function (_super) {
         if (gclConfig.citrix && gclConfig.agentPort === -1) {
             var agentPortError = {
                 description: 'Running in Citrix environment but no Agent port was defined in config.',
-                status: 400,
                 code: '801',
             };
             callback(agentPortError, null);
@@ -5510,7 +5480,7 @@ var CoreService = (function () {
                         outdated = semver.ltr(installedGclVersion, client.config().t1cVersion);
                     }
                     else {
-                        reject(new CoreExceptions_1.T1CLibException(412, '701', 'No version to check against was provided', client));
+                        reject(new CoreExceptions_1.T1CLibException('701', 'No version to check against was provided', client));
                     }
                 }
                 if (outdated === true) {
@@ -5521,7 +5491,7 @@ var CoreService = (function () {
                 }
             }, function (err) {
                 console.error('Could not receive info', err);
-                reject(new CoreExceptions_1.T1CLibException(500, '700', 'Could not retrieve GCL information', client));
+                reject(new CoreExceptions_1.T1CLibException('700', 'Could not retrieve GCL information', client));
             });
         });
     };
@@ -5627,19 +5597,19 @@ var EidBe = (function () {
     EidBe.prototype.picture = function (callback) {
         return this.connection.get(this.baseUrl, this.tokenApp(EidBe.PHOTO), undefined, undefined, callback);
     };
-    EidBe.prototype.rootCertificate = function (options, callback) {
+    EidBe.prototype.rootCertificate = function (callback) {
         return this.connection.get(this.baseUrl, this.tokenApp(EidBe.CERT_ROOT), undefined, undefined, callback);
     };
-    EidBe.prototype.intermediateCertificates = function (options, callback) {
+    EidBe.prototype.intermediateCertificates = function (callback) {
         return this.connection.get(this.baseUrl, this.tokenApp(EidBe.CERT_INTERMEDIATE), undefined, undefined, callback);
     };
-    EidBe.prototype.authenticationCertificate = function (options, callback) {
+    EidBe.prototype.authenticationCertificate = function (callback) {
         return this.connection.get(this.baseUrl, this.tokenApp(EidBe.CERT_AUTHENTICATION), undefined, undefined, callback);
     };
-    EidBe.prototype.nonRepudiationCertificate = function (options, callback) {
+    EidBe.prototype.nonRepudiationCertificate = function (callback) {
         return this.connection.get(this.baseUrl, this.tokenApp(EidBe.CERT_NON_REPUDIATION), undefined, undefined, callback);
     };
-    EidBe.prototype.encryptionCertificate = function (options, callback) {
+    EidBe.prototype.encryptionCertificate = function (callback) {
         return this.connection.get(this.baseUrl, this.tokenApp(EidBe.CERT_ENCRYPTION), undefined, undefined, callback);
     };
     EidBe.prototype.allAlgoRefs = function (callback) {
@@ -5767,11 +5737,11 @@ __export(__webpack_require__(100));
 __export(__webpack_require__(200));
 __export(__webpack_require__(201));
 __export(__webpack_require__(103));
-__export(__webpack_require__(208));
+__export(__webpack_require__(209));
 __export(__webpack_require__(98));
 __export(__webpack_require__(45));
 __export(__webpack_require__(99));
-__export(__webpack_require__(209));
+__export(__webpack_require__(210));
 Polyfills_1.Polyfills.check();
 
 
@@ -10254,6 +10224,9 @@ var T1CClient = (function () {
         this.beid = function (reader_id) {
             return _this.moduleFactory.createEidBE(reader_id);
         };
+        this.remoteloading = function (reader_id) {
+            return _this.moduleFactory.createRemoteLoading(reader_id);
+        };
         this.emv = function (reader_id) {
             return _this.moduleFactory.createEmv(reader_id);
         };
@@ -10317,6 +10290,7 @@ var Oberthur_1 = __webpack_require__(204);
 var Idemia_1 = __webpack_require__(205);
 var Emv_1 = __webpack_require__(206);
 var FileExchange_1 = __webpack_require__(207);
+var RemoteLoading_1 = __webpack_require__(208);
 var CONTAINER_NEW_CONTEXT_PATH = '/modules/';
 var CONTAINER_BEID = CONTAINER_NEW_CONTEXT_PATH + 'beid';
 var CONTAINER_BELAWYER = CONTAINER_NEW_CONTEXT_PATH + 'diplad';
@@ -10335,7 +10309,7 @@ var CONTAINER_IDEMIA = CONTAINER_NEW_CONTEXT_PATH + 'idemia_cosmo_82';
 var CONTAINER_PIV = CONTAINER_NEW_CONTEXT_PATH + 'piv';
 var CONTAINER_PTEID = CONTAINER_NEW_CONTEXT_PATH + 'pteid';
 var CONTAINER_PKCS11 = CONTAINER_NEW_CONTEXT_PATH + 'pkcs11';
-var CONTAINER_REMOTE_LOADING = CONTAINER_NEW_CONTEXT_PATH + 'readerapi';
+var CONTAINER_REMOTE_LOADING = CONTAINER_NEW_CONTEXT_PATH + 'remoteloading';
 var CONTAINER_JAVA_KEY_TOOL = CONTAINER_NEW_CONTEXT_PATH + 'java-keytool';
 var CONTAINER_SSH = CONTAINER_NEW_CONTEXT_PATH + 'ssh';
 var CONTAINER_RAW_PRINT = CONTAINER_NEW_CONTEXT_PATH + 'rawprint';
@@ -10361,6 +10335,9 @@ var ModuleFactory = (function () {
     };
     ModuleFactory.prototype.createFileExchange = function () {
         return new FileExchange_1.FileExchange(this.url, CONTAINER_FILE_EXCHANGE, this.connection);
+    };
+    ModuleFactory.prototype.createRemoteLoading = function (reader_id) {
+        return new RemoteLoading_1.RemoteLoading(this.url, CONTAINER_REMOTE_LOADING, this.connection, reader_id);
     };
     return ModuleFactory;
 }());
@@ -10855,6 +10832,104 @@ exports.FileExchange = FileExchange;
 
 "use strict";
 
+Object.defineProperty(exports, "__esModule", { value: true });
+var RemoteLoading = (function () {
+    function RemoteLoading(baseUrl, containerUrl, connection, reader_id) {
+        this.baseUrl = baseUrl;
+        this.containerUrl = containerUrl;
+        this.connection = connection;
+        this.reader_id = reader_id;
+    }
+    RemoteLoading.prototype.reloApp = function (path) {
+        var suffix = this.containerUrl;
+        suffix += RemoteLoading.PATHHSMMAPP + RemoteLoading.PATHREADERS;
+        if (this.reader_id && this.reader_id.length) {
+            suffix += '/' + this.reader_id;
+        }
+        if (path && path.length) {
+            suffix += path.startsWith('/') ? path : '/' + path;
+        }
+        return suffix;
+    };
+    RemoteLoading.prototype.apdu = function (apdu, sessionId, callback) {
+        return this.connection.post(this.baseUrl, this.reloApp(RemoteLoading.APDU), {
+            apdu: apdu,
+            sessionId: sessionId
+        }, undefined, undefined, callback);
+    };
+    RemoteLoading.prototype.apdus = function (apdu, sessionId, callback) {
+        return this.connection.post(this.baseUrl, this.reloApp(RemoteLoading.APDUS), {
+            apdus: apdu,
+            sessionId: sessionId
+        }, undefined, undefined, callback);
+    };
+    RemoteLoading.prototype.atr = function (sessionId, callback) {
+        return this.connection.post(this.baseUrl, this.reloApp(RemoteLoading.ATR), {
+            sessionId: sessionId
+        }, undefined, undefined, callback);
+    };
+    RemoteLoading.prototype.ccid = function (feature, command, sessionId, callback) {
+        return this.connection.post(this.baseUrl, this.reloApp(RemoteLoading.CCID), {
+            feature: feature,
+            command: command,
+            sessionId: sessionId
+        }, undefined, undefined, callback);
+    };
+    RemoteLoading.prototype.ccidFeatures = function (sessionId, callback) {
+        return this.connection.post(this.baseUrl, this.reloApp(RemoteLoading.CCIDFEATURES), {
+            sessionId: sessionId
+        }, undefined, undefined, callback);
+    };
+    RemoteLoading.prototype.closeSession = function (sessionId, callback) {
+        return this.connection.post(this.baseUrl, this.reloApp(RemoteLoading.CLOSE), {
+            sessionId: sessionId
+        }, undefined, undefined, callback);
+    };
+    RemoteLoading.prototype.command = function (tx, sessionId, callback) {
+        return this.connection.post(this.baseUrl, this.reloApp(RemoteLoading.COMMAND), {
+            command: tx,
+            sessionId: sessionId
+        }, undefined, undefined, callback);
+    };
+    RemoteLoading.prototype.commands = function (tx, sessionId, callback) {
+        return this.connection.post(this.baseUrl, this.reloApp(RemoteLoading.COMMANDS), {
+            commands: tx,
+            sessionId: sessionId
+        }, undefined, undefined, callback);
+    };
+    RemoteLoading.prototype.isPresent = function (sessionId, callback) {
+        return this.connection.post(this.baseUrl, this.reloApp(RemoteLoading.CARDPRESENT), {
+            sessionId: sessionId
+        }, undefined, undefined, callback);
+    };
+    RemoteLoading.prototype.openSession = function (timeout, callback) {
+        return this.connection.post(this.baseUrl, this.reloApp(RemoteLoading.OPEN), {
+            timeout: timeout
+        }, undefined, undefined, callback);
+    };
+    RemoteLoading.PATHHSMMAPP = '/apps/hsm';
+    RemoteLoading.PATHREADERS = '/readers';
+    RemoteLoading.OPEN = '/open-session';
+    RemoteLoading.CLOSE = '/close-session';
+    RemoteLoading.CARDPRESENT = '/card-present';
+    RemoteLoading.ATR = '/atr';
+    RemoteLoading.CCIDFEATURES = '/ccid-features';
+    RemoteLoading.CCID = '/ccid';
+    RemoteLoading.COMMAND = '/command';
+    RemoteLoading.APDU = '/apdu';
+    RemoteLoading.COMMANDS = '/commands';
+    RemoteLoading.APDUS = '/apdus';
+    return RemoteLoading;
+}());
+exports.RemoteLoading = RemoteLoading;
+
+
+/***/ }),
+/* 209 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -11079,7 +11154,7 @@ exports.BiometricDataResponse = BiometricDataResponse;
 
 
 /***/ }),
-/* 209 */
+/* 210 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
