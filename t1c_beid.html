@@ -22,6 +22,29 @@
 
 <body id="page-top" onload="initBeid()">
 
+
+<div class="modal fade" id="consentModal" tabindex="-1" role="dialog" aria-labelledby="consentModal" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Shared environment consent</h5>
+<!--        <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--          <span aria-hidden="true">&times;</span>-->
+<!--        </button>-->
+      </div>
+      <div class="modal-body">
+        This device is running in a shared environment, and needs your consent to continue working. Please click the button below to continue.
+        <span class="consent-token"></span>
+      </div>
+      <div class="modal-footer">
+<!--        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+        <button type="button" class="btn btn-primary">Continue</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
   <!-- Page Wrapper -->
   <div id="wrapper">
 

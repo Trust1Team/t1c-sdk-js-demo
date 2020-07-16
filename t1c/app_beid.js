@@ -270,9 +270,8 @@ function getBeid() {
     else return client.beid(selected_reader.id);
 }
 
-function initBeid() {
-    console.log("Start initializing T1C")
-
+function initBeid(clipboardData) {
+    console.log("Start initializing T1C");
     var configoptions = new T1CSdk.T1CConfigOptions(
         environment.t1cApiUrl,
         environment.t1cApiPort,
@@ -296,9 +295,9 @@ function initBeid() {
         undefined,
     );
     config = new T1CSdk.T1CConfig(configoptions);
-    T1CSdk.T1CClient.initialize(config).then(res => {
+    T1CSdk.T1CClient.initialize(config, clipboardData).then(res => {
         client = res;
-        console.log("Client config: ", client.localConfig)
+        console.log("Client config: ", client.localConfig);
         core = client.core();
         core.version().then(versionResult => console.log("Beid running on core "+ versionResult));
         getReaders();
@@ -307,9 +306,82 @@ function initBeid() {
         if (err.code == 301 || err.code == 302) {
             err.client.download("v3.0.1").then(res => {
                 let download = "Download the T1C here";
-                document.querySelector(".download").classList.remove("hidden")
+                document.querySelector(".download").classList.remove("hidden");
                 document.querySelector(".download").innerHTML = download.link(res.url);
             });
         }
+        if (err.code == 500) {
+            $('#consentModal').modal('show', {
+                keyboard: false
+            });
+            $('.consent-token').text(makeid(20));
+        }
     });
+
+    $('#consentModal .btn-primary').on('click', (ev) => {
+        const tokenNode = document.querySelector('.consent-token');
+        var range = document.createRange();
+        range.selectNode(tokenNode);
+        window.getSelection().addRange(range);
+        try {
+            // Now that we've selected the anchor text, execute the copy command
+            document.execCommand('copy');
+        } catch(err) {
+            console.log('Oops, unable to copy');
+        }
+
+        // Remove the selections - NOTE: Should use
+        // removeRange(range) when it is supported
+        window.getSelection().removeRange(range);
+        const clipboardData = tokenNode.textContent;
+        $('#consentModal').modal('hide');
+        initBeid(clipboardData);
+    });
+
+    function makeid(length) {
+        var result           = '';
+        var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        var charactersLength = characters.length;
+        for ( var i = 0; i < length; i++ ) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return result;
+    }
+
+    function copyToClipboard(str) {
+        try {
+            var textArea = document.createElement("textarea");
+
+            textArea.style.position = 'fixed';
+            textArea.style.top = 0;
+            textArea.style.left = 0;
+
+            textArea.style.width = '2em';
+            textArea.style.height = '2em';
+
+
+            textArea.style.padding = 0;
+
+            textArea.style.border = 'none';
+            textArea.style.outline = 'none';
+            textArea.style.boxShadow = 'none';
+
+
+            textArea.style.background = 'transparent';
+
+            textArea.value = str;
+
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            var successful = document.execCommand('copy');
+            var msg = successful ? 'successful' : 'unsuccessful';
+            console.log('Copying text command was ' + msg);
+            document.body.removeChild(textArea);
+            return str;
+        } catch (err) {
+            console.log('Oops, unable to copy');
+            return null;
+        }
+    }
 }
